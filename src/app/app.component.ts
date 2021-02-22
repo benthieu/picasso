@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
-import {FileHandlerService} from './file-handler.service';
+import {share, shareReplay, tap} from 'rxjs/operators';
+import {FileHandlerService, ForageFile} from './file-handler.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,10 @@ import {FileHandlerService} from './file-handler.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public file$: Observable<File | null>;
+  public file$: Observable<ForageFile>;
+
   constructor(private fileHandlerService: FileHandlerService) {
-    this.file$ = this.fileHandlerService.getFile().pipe(
+    this.file$ = this.fileHandlerService.getSelectedFile().pipe(
       tap((val) => console.log(val))
     );
   }

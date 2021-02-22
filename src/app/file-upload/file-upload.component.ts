@@ -16,7 +16,7 @@ export class FileUploadComponent implements OnInit {
     if (event && event.target) {
       const files = (event.target as HTMLInputElement).files;
       if (files && files.item(0)) {
-        this.fileHandlerService.setFile(files[0]);
+        this.fileHandlerService.createNewFile(files[0]);
       }
     }
   }
