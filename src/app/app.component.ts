@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {FileHandlerService} from './file-handler.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'picasso';
+  public file$: Observable<File | null>;
+  constructor(private fileHandlerService: FileHandlerService) {
+    this.file$ = this.fileHandlerService.getFile().pipe(
+      tap((val) => console.log(val))
+    );
+  }
 }
